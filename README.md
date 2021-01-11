@@ -9,3 +9,4 @@ Generate an html file that is also available for running on mobile device. This 
 则可以在第（框框）个List里面输入数字。一组list是100个词，每背完100个词，就会在下方第X遍背诵处增加1遍，一般来说，背上5遍也就很容易记住了。
 # 错题
 错题会在单击错误答案后自动跳出。
+**** 用一个js文件作为一个列表，然后包括所有的试题和答案这件事情做得挺蠢的，因为html纯自学，我还是很想了解不通过这么愚笨的办法把这么多数据加载的办法的。提前谢谢。
