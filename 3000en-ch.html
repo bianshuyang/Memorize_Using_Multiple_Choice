@@ -1,0 +1,178 @@
+<html>
+<head>
+<style>
+body{font-family: Arial;font-size: 25px}
+a {     color: blue;text-decoration: none;}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=no" />
+    <style type="text/css">
+
+        .input_radio li {
+            display: block;
+            position: relative;
+            list-style: none;
+        }
+        .input_radio input[type="radio"] {
+            display: none;
+        }
+        .input_radio span {
+            padding: 0 12px;
+            display: inline-block;
+            background: #F4F4F4;
+            border: 1px solid #F4F4F4;
+            border-radius: 4px;
+            line-height: 28px;
+            text-align: center;
+            color: #2D333B;
+            cursor: pointer;
+        }
+        .input_radio input:checked+span {
+            background: rgba(93,142,216,0.16);
+            border-color: #5D8ED8;
+            color: #5D8ED8;
+        }
+    </style>
+</head>
+<body>
+
+<script src='1.js'>
+</script>
+<script>
+var perm = [];
+for (var i = 0; i < words.length; i++) {
+    perm.push(words[i]);
+}
+
+
+
+
+function loc(){
+var x=parseInt(document.getElementById("in").value);
+if (isNaN(x)== true){
+alert('请输入list')
+}
+else{
+var perm1 = [];
+for (var i = 0; i < perm.length; i++) {
+    perm1.push(perm[i]);
+}
+words = perm1.slice(100*(x-1),100*x+1)
+}
+}
+
+function next(){
+var radios = document.getElementsByName("c");
+var value = -1;
+for(var i=0;i<radios.length;i++){
+if(radios[i].checked == true){
+value = radios[i].value;
+}
+}
+if (value==-1){
+alert('先做题！')
+}
+else{
+sel = document.getElementById(String(value)).innerText;
+word = document.getElementById('q').innerText;
+num = parseInt(perm.indexOf(word)); //这个是单词的顺序
+///console.log(ans[num]);
+///console.log(sel);
+newq();
+if (ans[num]==sel){
+a = document.getElementById('no');
+a.innerHTML = String(parseInt(a.innerText)+1);
+}
+else{
+a = document.getElementById('no');
+a.innerHTML = String(parseInt(a.innerText)+1);
+b = document.getElementById('wrong');
+origin = b.innerText;
+origin = '\n'+word+ans[num]+'\n'+origin
+b.innerHTML = origin
+}
+}
+checker()
+if (words ==""){
+loc();
+times = document.getElementById('times')
+timess = times.innerText;
+time = parseInt(timess.replace(/[^0-9]/ig,""));
+times.innerHTML = "<p id='times'>第"+String(time+1)+"遍背诵</p>"
+}
+}
+///////////////////////////
+function newq(){
+q = Math.floor((Math.random()*4)+1)-1; /////这是选项的答案
+index = Math.floor((Math.random()*(words.length))+1)-1;///这是随机化的单词定位
+newqq = document.getElementById('q');
+newqq.innerHTML = words[index]
+actual_index = perm.indexOf(words[index])
+newans = document.getElementById(String(q));
+newans.innerHTML = '<p id="'+String(q)+'"><input id="'+String(q)+String(q)+'" type="radio" name="c" value="'+String(q)+'" '+"onclick='next()'"+'"><span class="option-label">'+ans[actual_index]+'</span></p>';
+r = [0,1,2,3];
+r.splice(q,1);
+for (var k=0;k<r.length;k++){
+anss = document.getElementById(String(r[k]));
+index = Math.floor((Math.random()*(words.length))+1)-1;///这是随机化的错误选项
+anss.innerHTML = '<p id="'+String(r[k])+'"><input id="'+String(r[k])+String(r[k])+'" type="radio" name="c" value="'+String(r[k])+'" '+" onclick='next()'"+'"><span class="option-label">'+ans[index]+'</span></p>';
+///console.log(q,index,anss.innerHTML);
+}
+}
+</script>
+<script>
+function checker(){
+var arr2 = [];
+for (var i = 0; i < words.length; i++) {
+    arr2.push(words[i]);
+}
+///console.log(arr2);
+word = document.getElementById('q').innerText;
+arr2.splice(arr2.indexOf(word),1);
+///console.log(arr2);
+words = arr2;
+}
+function refresh(){
+b = document.getElementById('wrong');
+b.innerHTML = "<p id='wrong'>错题：</p>";
+}
+
+function clearradio(){                           //取消radio的选择
+var x=document.getElementsByName("c");  //获取所有name=brand的元素
+for(var i=0;i<x.length;i++){ //对所有结果进行遍历，如果状态是被选中的，则将其选择取消
+if (x[i].checked==true)
+{
+x[i].checked=false;
+}
+}
+}
+
+
+</script>
+第<input id = 'in' type="text" maxlength="2" style="width: 60px;font-size:25px" >个List</input>
+<button onclick='loc()' style='font-size:25px'>开始背诵！</button>
+<p id='no'>1</p>
+<p id='q'>单击除了“不知道”选项以外以继续</p>
+
+<ul class="input_radio">
+
+<li><label for="00"> <p id='0'><input id="00" type="radio" name="c" value="0" onclick='next()' ><span class="option-label">||||</span></input></p></label></li>
+
+<li><label for="11"> <p id='1'><input id="11" type="radio" name="c" value="1" onclick='next()' ><span class="option-label">||||</span></input></p></label></li>
+
+
+<li><label for="22"> <p id='2'><input id="22" type="radio" name="c" value="2" onclick='next()' ><span class="option-label">||||</span></input></p></label></li>
+
+
+<li><label for="33"> <p id='3'><input id="33" type="radio" name="c" value="3" onclick='next()' ><span class="option-label">||||</span></input></p></label></li>
+
+
+<li><label for="44"> <p id='4'><input id="44" type="radio" name="c" value="4" onclick='next()' ><span class="option-label">不知道</span></input></p></label></li>
+
+</ul>
+<p id='times' style='font-size:25px'>第1遍背诵</p>
+<p id='back'><a href='3000.html'>返回</a></p>
+<button onclick='refresh()' style='font-size:25px'>刷新</button>
+<p id='wrong'>错题：</p>
+
+</body>
+</html>
